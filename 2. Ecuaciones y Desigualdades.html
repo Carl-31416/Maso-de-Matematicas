@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecuaciones y Desigualdades</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6 "></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 3rem;
+            background-color: #e9ecef;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border-left: 5px solid #007bff;
+            width: calc(33% - 4rem);
+            margin-right: 2rem;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            position: relative; /* Para posicionar el botón de copiar y el mensaje */
+        }
+
+        @media (max-width: 1200px) {
+            .card {
+                width: calc(50% - 4rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #1e7e34;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        details {
+            margin-top: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 1rem;
+            background-color: #f8f9fa;
+        }
+
+        summary {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            list-style: none;
+        }
+
+        summary::before {
+            content: '▶ ';
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+
+        details[open] > summary::before {
+            content: '▼ ';
+        }
+
+        details > p {
+            margin-top: 0.5rem;
+        }
+
+        .eliminar-btn {
+            background-color: #e34c4c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            position: absolute; /* Asegura que esté por encima de otros elementos */
+            top: 0.5rem;
+            right: 0.5rem;
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
+        }
+
+
+        .card:hover .eliminar-btn {
+            opacity: 1;
+        }
+
+        .eliminar-btn:hover {
+            background-color: #c82333;
+        }
+
+        .card-footer {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .copiar-titulo-btn {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
+        }
+
+        .copiar-titulo-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .card:hover .copiar-titulo-btn {
+            opacity: 1;
+        }
+
+        .mensaje-copiado {
+            position: absolute;
+            top: 0.5rem; /* Ajusta la posición vertical según necesites */
+            left: 3rem; /* Ajusta la posición horizontal según necesites */
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            opacity: 0; /* Inicialmente oculto */
+            transition: opacity 0.3s ease-in-out;
+            z-index: 11; /* Asegura que esté por encima del botón */
+        }
+
+        .mensaje-copiado.mostrar {
+            opacity: 1; /* Se muestra cuando se agrega esta clase */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📘 Mazo - Ecuaciones y Desigualdades</h1>
+    <div class="card-container">
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones Lineales (1) </h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( 2x + 5 = 11 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 3 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Resta 5 a ambos lados: \( 2x = 6 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Restamos 5 de ambos lados para aislar el término con la variable x.</p>
+            </details>
+          </li>
+          <li>
+            Divide ambos lados por 2: \( x = 3 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Dividimos entre 2 para despejar la variable x.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones Lineales (2) </h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( -3x + 7 = -8 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 5 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Resta 7 a ambos lados: \( -3x = -15 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Restamos 7 de ambos lados para aislar el término con la variable x.</p>
+            </details>
+          </li>
+          <li>
+            Divide ambos lados por -3: \( x = 5 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Dividimos entre -3 para despejar la variable x.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Paréntesis</h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( 4(x - 2) = 12 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 5 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Distribuye el 4: \( 4x - 8 = 12 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Multiplicamos 4 por cada término dentro del paréntesis.</p>
+            </details>
+          </li>
+          <li>
+            Suma 8 a ambos lados: \( 4x = 20 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Agregamos 8 a ambos lados para aislar el término con la variable x.</p>
+            </details>
+          </li>
+          <li>
+            Divide ambos lados por 4: \( x = 5 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Dividimos entre 4 para despejar la variable x.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Fracciones</h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( \frac{x}{3} + 2 = 5 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 9 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Resta 2 a ambos lados: \( \frac{x}{3} = 3 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Restamos 2 de ambos lados para simplificar la ecuación.</p>
+            </details>
+          </li>
+          <li>
+            Multiplica ambos lados por 3: \( x = 9 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Multiplicamos por 3 para despejar la variable x.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Variables en Ambos Lados</h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( 2x + 3 = 5x - 9 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 4 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Resta \( 2x \) de ambos lados: \( 3 = 3x - 9 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Restamos \( 2x \) de ambos lados para agrupar todos los términos con x en un solo lado.</p>
+            </details>
+          </li>
+          <li>
+            Suma 9 a ambos lados: \( 12 = 3x \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Sumamos 9 a ambos lados para aislar el término con la variable x.</p>
+            </details>
+          </li>
+          <li>
+            Divide ambos lados por 3: \( x = 4 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Dividimos entre 3 para despejar la variable x.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Problema con Perímetro de un Rectángulo ⭐⭐ </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Un rectángulo tiene un perímetro de 30 cm. El largo es el doble del ancho. Halla las dimensiones del rectángulo.</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: Ancho = \( 5 \) cm, Largo = \( 10 \) cm
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Sea \( x \) el ancho → largo = \( 2x \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Definimos el ancho como \( x \), entonces el largo es el doble, o sea, \( 2x \).</p>
+            </details>
+          </li>
+          <li>
+            Fórmula del perímetro: \( P = 2(\text{largo} + \text{ancho}) \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Sustituimos los valores: \( 2(x + 2x) = 30 \)</p>
+            </details>
+          </li>
+          <li>
+            Resolvemos la ecuación: \( 2(3x) = 30 \Rightarrow 6x = 30 \Rightarrow x = 5 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>El ancho es \( x = 5 \), y el largo es \( 2x = 10 \).</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+            <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+            <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Números Consecutivos ⭐⭐ </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>La suma de tres números consecutivos es 48. ¿Cuáles son los números?</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: Los números son \( 15, 16 \) y \( 17 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Sea \( x \) el primer número → los otros son \( x+1 \) y \( x+2 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Los tres números consecutivos se escriben como \( x, x+1, x+2 \).</p>
+            </details>
+          </li>
+          <li>
+            Ecuación: \( x + (x+1) + (x+2) = 48 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Sumamos: \( 3x + 3 = 48 \)</p>
+            </details>
+          </li>
+          <li>
+            Resolvemos: \( 3x = 45 \Rightarrow x = 15 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Entonces los números son \( 15, 16, 17 \).</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones Literales</h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve para \( x \): \( ax + b = c \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = \frac{c - b}{a} \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Resta \( b \): \( ax = c - b \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Restamos \( b \) de ambos lados para aislar el término con \( x \).</p>
+            </details>
+          </li>
+          <li>
+            Divide entre \( a \): \( x = \frac{c - b}{a} \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Dividimos ambos lados entre \( a \) para despejar \( x \).</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Fracciones</h2>
+  <p><b><small>Easy</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve para \( x \): \( \frac{x}{a} + b = c \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = a(c - b) \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Resta \( b \): \( \frac{x}{a} = c - b \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Restamos \( b \) de ambos lados para simplificar la ecuación.</p>
+            </details>
+          </li>
+          <li>
+            Multiplica por \( a \): \( x = a(c - b) \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Multiplicamos ambos lados por \( a \) para despejar \( x \).</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Sistema de Ecuaciones ⭐⭐ </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve el sistema:
+    \[
+    \begin{cases}
+    x + y = 7 \\
+    x - y = 3
+    \end{cases}
+    \]
+  </p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 5 \), \( y = 2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Sumamos ambas ecuaciones: \( 2x = 10 \Rightarrow x = 5 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Al sumar las ecuaciones, se elimina $ y $, lo que facilita encontrar $ x $.</p>
+            </details>
+          </li>
+          <li>
+            Sustituimos $ x = 5 $ en $ x + y = 7 $: $ 5 + y = 7 \Rightarrow y = 2 $
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Sustituimos $ x $ en una de las ecuaciones originales para encontrar $ y $.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución por Factorización (1) ⭐</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve por factorización: \( x^2 - 5x + 6 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 2 \), \( x = 3 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Buscamos dos números que multipliquen a 6 y sumen -5 → son -2 y -3
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>La ecuación se puede escribir como: \( (x - 2)(x - 3) = 0 \)</p>
+            </details>
+          </li>
+          <li>
+            Aplicamos la propiedad del producto cero:
+            <ul>
+              <li>\( x - 2 = 0 \Rightarrow x = 2 \)</li>
+              <li>\( x - 3 = 0 \Rightarrow x = 3 \)</li>
+            </ul>
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Cada factor igualado a cero da una solución.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2> Resolución por Factorización (2) ⭐⭐</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve por factorización: \( 2x^2 + 7x + 3 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = -\frac{1}{2} \), \( x = -3 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Multiplicamos el coeficiente principal por el término constante: \( 2 \cdot 3 = 6 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Buscamos dos números que multipliquen a 6 y sumen 7 → son 6 y 1</p>
+            </details>
+          </li>
+          <li>
+            Reescribimos el término central: \( 2x^2 + 6x + x + 3 = 0 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Agrupamos y factorizamos:</p>
+              <p>\( (2x^2 + 6x) + (x + 3) = 0 \Rightarrow 2x(x + 3) + 1(x + 3) = 0 \)</p>
+            </details>
+          </li>
+          <li>
+            Factor común: \( (2x + 1)(x + 3) = 0 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Igualamos cada factor a cero:</p>
+              <ul>
+                <li>\( 2x + 1 = 0 \Rightarrow x = -\frac{1}{2} \)</li>
+                <li>\( x + 3 = 0 \Rightarrow x = -3 \)</li>
+              </ul>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución con Fórmula Cuadrática (1) ⭐⭐</h2>
+  <p><b><small>Inside (dos)</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve usando la fórmula cuadrática: \( x^2 + 4x + 1 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = -2 \pm \sqrt{3} \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Identificamos los coeficientes: \( a = 1 \), \( b = 4 \), \( c = 1 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Fórmula cuadrática: \( x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)</p>
+            </details>
+          </li>
+          <li>
+            Sustituimos en la fórmula:
+            \[
+            x = \frac{-4 \pm \sqrt{(4)^2 - 4(1)(1)}}{2(1)} = \frac{-4 \pm \sqrt{16 - 4}}{2} = \frac{-4 \pm \sqrt{12}}{2}
+            \]
+            <details>
+              <summary>Paso 2 Detallado ⭐⭐</summary>
+              <p>Simplificamos: \( \sqrt{12} = 2\sqrt{3} \)</p>
+            </details>
+          </li>
+          <li>
+            Finalmente: ⭐⭐ \( x = \frac{-4 \pm 2\sqrt{3}}{2} = -2 \pm \sqrt{3} \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Dividimos entre 2 y obtenemos las soluciones exactas.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución con Fórmula Cuadrática (2)</h2>
+  <p><b><small>Solo mas practica</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve usando la fórmula cuadrática: \( 3x^2 - 2x - 8 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 2 \), \( x = -\frac{4}{3} \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Identificamos los coeficientes: \( a = 3 \), \( b = -2 \), \( c = -8 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Fórmula cuadrática: \( x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)</p>
+            </details>
+          </li>
+          <li>
+            Sustituimos en la fórmula:
+            \[
+            x = \frac{-(-2) \pm \sqrt{(-2)^2 - 4(3)(-8)}}{2(3)} = \frac{2 \pm \sqrt{4 + 96}}{6} = \frac{2 \pm \sqrt{100}}{6}
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>\( \sqrt{100} = 10 \)</p>
+            </details>
+          </li>
+          <li>
+            Resolvemos:
+            \[
+            x = \frac{2 \pm 10}{6} \Rightarrow x = \frac{12}{6} = 2 \quad \text{o} \quad x = \frac{-8}{6} = -\frac{4}{3}
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Dos soluciones reales distintas.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución Completando el Cuadrado (1)⭐⭐</h2>
+  <p><b><small>inside (dos)</small></b></p>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve completando el cuadrado: \( x^2 - 6x + 5 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 1 \), \( x = 5 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Movemos el término constante: \( x^2 - 6x = -5 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Preparamos para completar el cuadrado.</p>
+            </details>
+          </li>
+          <li>
+            Completamos el cuadrado: ⭐⭐ \( x^2 - 6x + 9 = -5 + 9 \Rightarrow (x - 3)^2 = 4 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Añadimos \( (\frac{6}{2})^2 = 9 \) a ambos lados.</p>
+            </details>
+          </li>
+          <li>
+            Sacamos raíz cuadrada: ⭐⭐ \( x - 3 = \pm 2 \Rightarrow x = 3 \pm 2 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Las soluciones finales son: \( x = 1 \), \( x = 5 \).</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución Completando el Cuadrado (2)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve completando el cuadrado: \( 2x^2 + 8x - 10 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 1 \), \( x = -5 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Dividimos todo entre 2: \( x^2 + 4x - 5 = 0 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Hacemos que el coeficiente de \( x^2 \) sea 1.</p>
+            </details>
+          </li>
+          <li>
+            Movemos el término constante: \( x^2 + 4x = 5 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Preparamos para completar el cuadrado.</p>
+            </details>
+          </li>
+          <li>
+            Completamos el cuadrado: \( x^2 + 4x + 4 = 5 + 4 \Rightarrow (x + 2)^2 = 9 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Añadimos \( (\frac{4}{2})^2 = 4 \) a ambos lados.</p>
+            </details>
+          </li>
+          <li>
+            Sacamos raíz cuadrada: \( x + 2 = \pm 3 \Rightarrow x = -2 \pm 3 \)
+            <details>
+              <summary>Paso 4 Detallado</summary>
+              <p>Las soluciones finales son: \( x = 1 \), \( x = -5 \).</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuación Bicuadrada</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( x^4 - 5x^2 + 4 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = \pm 1 \), \( x = \pm 2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Hacemos sustitución: \( u = x^2 \Rightarrow u^2 - 5u + 4 = 0 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Transformamos la ecuación bicuadrada en una cuadrática.</p>
+            </details>
+          </li>
+          <li>
+            Factorizamos: \( (u - 1)(u - 4) = 0 \Rightarrow u = 1, u = 4 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Devolvemos la sustitución original: \( x^2 = 1 \Rightarrow x = \pm 1 \), \( x^2 = 4 \Rightarrow x = \pm 2 \)</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuación con Sustitución</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( (x^2 - 3x)^2 - 10(x^2 - 3x) + 24 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 1, 2, 3, 4 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Hacemos sustitución: \( u = x^2 - 3x \Rightarrow u^2 - 10u + 24 = 0 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Factorizamos: \( (u - 6)(u - 4) = 0 \Rightarrow u = 6, u = 4 \)</p>
+            </details>
+          </li>
+          <li>
+            Resolvemos para \( x \) en ambos casos:
+            <ul>
+              <li>\( x^2 - 3x = 6 \Rightarrow x^2 - 3x - 6 = 0 \)</li>
+              <li>\( x^2 - 3x = 4 \Rightarrow x^2 - 3x - 4 = 0 \)</li>
+            </ul>
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Usamos la fórmula cuadrática o factorización:</p>
+              <ul>
+                <li>\( x^2 - 3x - 4 = 0 \Rightarrow (x - 4)(x + 1) = 0 \Rightarrow x = 4, -1 \)</li>
+                <li>\( x^2 - 3x - 6 = 0 \Rightarrow x = \frac{3 \pm \sqrt{33}}{2} \)</li>
+              </ul>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuación Cuadrática (1)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( x^2 + 2x - 15 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = -5, x = 3 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Buscamos dos números que multipliquen a -15 y sumen 2 → son 5 y -3
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Factorizamos: \( (x + 5)(x - 3) = 0 \)</p>
+            </details>
+          </li>
+          <li>
+            Igualamos cada factor a cero:
+            <ul>
+              <li>\( x + 5 = 0 \Rightarrow x = -5 \)</li>
+              <li>\( x - 3 = 0 \Rightarrow x = 3 \)</li>
+            </ul>
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Cada solución corresponde a una raíz de la ecuación.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuación Cuadrática (2)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( 2x^2 - 5x - 3 = 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 3, x = -\frac{1}{2} \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Multiplicamos coeficiente principal por término constante: \( 2 \cdot (-3) = -6 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Buscamos dos números que multipliquen a -6 y sumen -5 → son -6 y 1</p>
+            </details>
+          </li>
+          <li>
+            Reescribimos el término central: \( 2x^2 - 6x + x - 3 = 0 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Agrupamos y factorizamos:</p>
+              <p>\( (2x^2 - 6x) + (x - 3) = 0 \Rightarrow 2x(x - 3) + 1(x - 3) = 0 \)</p>
+            </details>
+          </li>
+          <li>
+            Factor común: \( (2x + 1)(x - 3) = 0 \)
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Igualamos a cero:</p>
+              <ul>
+                <li>\( 2x + 1 = 0 \Rightarrow x = -\frac{1}{2} \)</li>
+                <li>\( x - 3 = 0 \Rightarrow x = 3 \)</li>
+              </ul>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Raíces (1)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( \sqrt{x + 4} = 3 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 5 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Elevamos ambos lados al cuadrado: \( x + 4 = 9 \)
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Eliminamos la raíz cuadrada elevando al cuadrado ambos lados.</p>
+            </details>
+          </li>
+          <li>
+            Restamos 4: \( x = 5 \)
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Verificamos: $ \sqrt{5 + 4} = \sqrt{9} = 3 $ ✓</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Raíces (2)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( \sqrt{2x - 1} = x - 2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x = 5 \), $ x = 1 $ (extránea)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Elevamos al cuadrado: $ 2x - 1 = (x - 2)^2 $
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Desarrollamos el cuadrado: $ 2x - 1 = x^2 - 4x + 4 $</p>
+            </details>
+          </li>
+          <li>
+            Movemos todo al lado izquierdo: $ x^2 - 6x + 5 = 0 $
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Factorizamos: $ (x - 5)(x - 1) = 0 \Rightarrow x = 5, x = 1 $</p>
+            </details>
+          </li>
+          <li>
+            Verificación:
+            <ul>
+              <li>$ x = 5 $: $ \sqrt{2(5) - 1} = 5 - 2 \Rightarrow \sqrt{9} = 3 $ ✓</li>
+              <li>$ x = 1 $: $ \sqrt{2(1) - 1} = 1 - 2 \Rightarrow \sqrt{1} = -1 $ ✗</li>
+            </ul>
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Descartamos $ x = 1 $ porque no cumple con la ecuación original.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Múltiples Raíces</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( \sqrt{x+1} + \sqrt{x-2} = 3 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x = 3 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Aislamos un radical: $ \sqrt{x+1} = 3 - \sqrt{x-2} $
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Elevamos ambos lados al cuadrado:</p>
+              <p>$ x + 1 = 9 - 6\sqrt{x - 2} + x - 2 $</p>
+            </details>
+          </li>
+          <li>
+            Simplificamos: $ x + 1 = x + 7 - 6\sqrt{x - 2} $
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Cancelamos $ x $, restamos 7 y dividimos entre -6:</p>
+              <p>$ -6 = -6\sqrt{x - 2} \Rightarrow \sqrt{x - 2} = 1 \Rightarrow x - 2 = 1 \Rightarrow x = 3 $</p>
+            </details>
+          </li>
+          <li>
+            Verificación: $ \sqrt{3+1} + \sqrt{3-2} = \sqrt{4} + \sqrt{1} = 2 + 1 = 3 $ ✓
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Solución válida.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Ecuaciones con Raíz Cúbica</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( \sqrt[3]{2x - 1} = 2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x = \frac{9}{2} $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Elevamos ambos lados al cubo: $ (\sqrt[3]{2x - 1})^3 = 2^3 \Rightarrow 2x - 1 = 8 $
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Eliminamos la raíz cúbica elevando al cubo ambos lados.</p>
+            </details>
+          </li>
+          <li>
+            Sumamos 1 a ambos lados: $ 2x = 9 $
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Despejamos $ x $ dividiendo entre 2.</p>
+            </details>
+          </li>
+          <li>
+            Dividimos entre 2: $ x = \frac{9}{2} $
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Verificación: $ \sqrt[3]{2(\frac{9}{2}) - 1} = \sqrt[3]{9 - 1} = \sqrt[3]{8} = 2 $ ✓</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+
+<div class="card">
+    <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+    <span class="mensaje-copiado">¡Copiado!</span>
+    <h2>Ecuación con Raíz Cuadrada </h2>
+    <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+    <p>Resuelve: \( x - \sqrt{x} - 2 = 0 \)</p>
+    <details>
+        <summary>Respuesta</summary>
+        <p>
+            Resultado: \( x = 4 \), \( x = 1 \) (extránea)
+        </p>
+        <details>
+            <summary>Ver pasos detallados</summary>
+            <p>
+                Pasos:
+                <ol>
+                    <li>
+                        Hacemos
+                        sustitución: \( u = \sqrt{x} \Rightarrow u^2 - u - 2 = 0 \)
+                        <details>
+                            <summary>Paso 1 Detallado</summary>
+                            <p>Factorizamos: \( (u - 2)(u + 1) = 0 \Rightarrow u = 2, u = -1 \)</p>
+                        </details>
+                    </li>
+                    <li>
+                        Deshacemos la sustitución:
+                        <ul>
+                            <li>\( \sqrt{x} = 2 \Rightarrow x = 4 \) ✓</li>
+                            <li>\( \sqrt{x} = -1 \Rightarrow x = 1 \) ✗ (no válida)</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 2 Detallado</summary>
+                            <p>Descartamos \( x = 1 \) porque \( \sqrt{x} \) no puede ser
+                                negativo.</p>
+                        </details>
+                    </li>
+                </ol>
+            </p>
+        </details>
+    </details>
+</div>
+
+
+
+
+
+
+
+<div class="card">
+    <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+    <span class="mensaje-copiado">¡Copiado!</span>
+    <h2>Ecuaciones con Valor Absoluto (1)</h2>
+    <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+    <p>Resuelve: \( |x - 3| = 5 \)</p>
+    <details>
+        <summary>Respuesta</summary>
+        <p>
+            Resultado: \( x = 8 \), \( x = -2 \)
+        </p>
+        <details>
+            <summary>Ver pasos detallados</summary>
+            <p>
+                Pasos:
+                <ol>
+                    <li>
+                        Consideramos dos casos:
+                        <ul>
+                            <li>Caso 1: \( x - 3 = 5 \Rightarrow x = 8 \)</li>
+                            <li>Caso 2: \( x - 3 = -5 \Rightarrow x = -2 \)</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 1 Detallado</summary>
+                            <p>El valor absoluto genera dos posibles soluciones.</p>
+                        </details>
+                    </li>
+                    <li>
+                        Verificación:
+                        <ul>
+                            <li>\( |8 - 3| = |5| = 5 \) ✓</li>
+                            <li>\( |-2 - 3| = |-5| = 5 \) ✓</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 2 Detallado</summary>
+                            <p>Ambas soluciones son válidas.</p>
+                        </details>
+                    </li>
+                </ol>
+            </p>
+        </details>
+    </details>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="card">
+    <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+    <span class="mensaje-copiado">¡Copiado!</span>
+    <h2>Ecuaciones con Valor Absoluto (2)</h2>
+    <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+    <p>Resuelve: \( |2x + 1| = 7 \)</p>
+    <details>
+        <summary>Respuesta</summary>
+        <p>
+            Resultado: \( x = 3 \), \( x = -4 \)
+        </p>
+        <details>
+            <summary>Ver pasos detallados</summary>
+            <p>
+                Pasos:
+                <ol>
+                    <li>
+                        Dos casos:
+                        <ul>
+                            <li>\( 2x + 1 = 7 \Rightarrow x = 3 \)</li>
+                            <li>\( 2x + 1 = -7 \Rightarrow x = -4 \)</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 1 Detallado</summary>
+                            <p>Definición del valor absoluto.</p>
+                        </details>
+                    </li>
+                    <li>
+                        Verificación:
+                        <ul>
+                            <li>\( |2(3) + 1| = |7| = 7 \) ✓</li>
+                            <li>\( |2(-4) + 1| = |-7| = 7 \) ✓</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 2 Detallado</summary>
+                            <p>Ambas soluciones son válidas.</p>
+                        </details>
+                    </li>
+                </ol>
+            </p>
+        </details>
+    </details>
+</div>
+
+
+
+
+
+<div class="card">
+    <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+    <span class="mensaje-copiado">¡Copiado!</span>
+    <h2>Ecuaciones con Valor Absoluto (3)</h2>
+    <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+    <p>Resuelve: \( |x - 2| = |3x + 1| \)</p>
+    <details>
+        <summary>Respuesta</summary>
+        <p>
+            Resultado: \( x = -\frac{3}{2} \), \( x = \frac{1}{4} \)
+        </p>
+        <details>
+            <summary>Ver pasos detallados</summary>
+            <p>
+                Pasos:
+                <ol>
+                    <li>
+                        Dos casos principales:
+                        <ul>
+                            <li>\( x - 2 = 3x + 1 \Rightarrow -2x = 3 \Rightarrow x = -\frac{3}{2} \)</li>
+                            <li>\( x - 2 = -(3x + 1) \Rightarrow x - 2 = -3x - 1 \Rightarrow 4x = 1 \Rightarrow x = \frac{1}{4} \)</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 1 Detallado</summary>
+                            <p>Usamos la propiedad: \( |a| = |b| \Rightarrow a = b \) o \( a = -b \)</p>
+                        </details>
+                    </li>
+                    <li>
+                        Verificación:
+                        <ul>
+                            <li>\( |-\frac{3}{2} - 2| = |-\frac{7}{2}| = \frac{7}{2} \), \( |3(-\frac{3}{2}) + 1| = |-\frac{7}{2}| = \frac{7}{2} \) ✓</li>
+                            <li>\( |\frac{1}{4} - 2| = |-\frac{7}{4}| = \frac{7}{4} \), \( |3(\frac{1}{4}) + 1| = |\frac{7}{4}| = \frac{7}{4} \) ✓</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 2 Detallado</summary>
+                            <p>Ambas soluciones son válidas.</p>
+                        </details>
+                    </li>
+                </ol>
+            </p>
+        </details>
+    </details>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+    <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+    <span class="mensaje-copiado">¡Copiado!</span>
+    <h2>Ecuaciones con Valor Absoluto (4)</h2>
+    <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+    <p>Resuelve: \( |x^2 - 1| = 3 \)</p>
+    <details>
+        <summary>Respuesta</summary>
+        <p>
+            Resultado: \( x = \pm 2 \)
+        </p>
+        <details>
+            <summary>Ver pasos detallados</summary>
+            <p>
+                Pasos:
+                <ol>
+                    <li>
+                        Dos casos:
+                        <ul>
+                            <li>\( x^2 - 1 = 3 \Rightarrow x^2 = 4 \Rightarrow x = \pm 2 \)</li>
+                            <li>\( x^2 - 1 = -3 \Rightarrow x^2 = -2 \) → No solución real
+                        </ul>
+                        <details>
+                            <summary>Paso 1 Detallado</summary>
+                            <p>Definición de valor absoluto aplicada a una expresión cuadrática.</p>
+                        </details>
+                    </li>
+                    <li>
+                        Verificación:
+                        <ul>
+                            <li>\( |(2)^2 - 1| = |4 - 1| = 3 \) ✓</li>
+                            <li>\( |(-2)^2 - 1| = |4 - 1| = 3 \) ✓</li>
+                        </ul>
+                        <details>
+                            <summary>Paso 2 Detallado</summary>
+                            <p>Solo las soluciones reales son válidas.</p>
+                        </details>
+                    </li>
+                </ol>
+            </p>
+        </details>
+    </details>
+</div>
+
+
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución por Sustitución</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve por sustitución:
+    \[
+    \begin{cases}
+    y = 2x + 1 \\
+    x + y = 4
+    \end{cases}
+    \]
+  </p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x = 1 $, $ y = 3 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Sustituimos $ y = 2x + 1 $ en la segunda ecuación:
+            \[
+            x + (2x + 1) = 4
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Reemplazamos $ y $ en la segunda ecuación.</p>
+            </details>
+          </li>
+          <li>
+            Resolvemos:
+            \[
+            3x + 1 = 4 \Rightarrow 3x = 3 \Rightarrow x = 1
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Simplificamos y despejamos $ x $.</p>
+            </details>
+          </li>
+          <li>
+            Sustituimos $ x = 1 $ en $ y = 2x + 1 $:
+            \[
+            y = 2(1) + 1 = 3
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Obtenemos el valor de $ y $.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución por Igualación</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve por igualación:
+    \[
+    \begin{cases}
+    y = 3x - 2 \\
+    y = x + 4
+    \end{cases}
+    \]
+  </p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x = 3 $, $ y = 7 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Igualamos las dos expresiones de $ y $:
+            \[
+            3x - 2 = x + 4
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Como ambas son iguales a $ y $, se pueden igualar entre sí.</p>
+            </details>
+          </li>
+          <li>
+            Restamos $ x $ y sumamos 2 a ambos lados:
+            \[
+            2x = 6 \Rightarrow x = 3
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Despejamos $ x $.</p>
+            </details>
+          </li>
+          <li>
+            Sustituimos $ x = 3 $ en cualquiera de las ecuaciones:
+            \[
+            y = 3(3) - 2 = 9 - 2 = 7
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Obtenemos el valor de $ y $.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución por Eliminación</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve por eliminación:
+    \[
+    \begin{cases}
+    2x + y = 5 \\
+    x - y = 1
+    \end{cases}
+    \]
+  </p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x = 2 $, $ y = 1 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Sumamos ambas ecuaciones para eliminar $ y $:
+            \[
+            (2x + y) + (x - y) = 5 + 1 \Rightarrow 3x = 6 \Rightarrow x = 2
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>La variable $ y $ se elimina al sumar las ecuaciones.</p>
+            </details>
+          </li>
+          <li>
+            Sustituimos $ x = 2 $ en una de las ecuaciones originales:
+            \[
+            2(2) + y = 5 \Rightarrow 4 + y = 5 \Rightarrow y = 1
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Encontramos el valor de $ y $.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución de un Sistema 3x3</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve el sistema:
+    \[
+    \begin{cases}
+    x + 2y - z = 1 \\
+    2x - y + z = 2 \\
+    x + y + z = 3
+    \end{cases}
+    \]
+  </p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x = 1 $, $ y = 1 $, $ z = 1 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Elegimos dos pares de ecuaciones y eliminamos una variable. Por ejemplo, eliminamos $ z $ de las ecuaciones 1 y 2:
+            \[
+            (x + 2y - z) + (2x - y + z) = 1 + 2 \Rightarrow 3x + y = 3
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Eliminamos $ z $ sumando las ecuaciones.</p>
+            </details>
+          </li>
+          <li>
+            Ahora usamos las ecuaciones 2 y 3 para eliminar $ z $ otra vez:
+            \[
+            (2x - y + z) + (x + y + z) = 2 + 3 \Rightarrow 3x + 2z = 5
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Nueva ecuación sin $ y $.</p>
+            </details>
+          </li>
+          <li>
+            Ahora resolvemos el sistema reducido:
+            \[
+            \begin{cases}
+            3x + y = 3 \\
+            3x + 2z = 5 \\
+            x + y + z = 3
+            \end{cases}
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Despejamos y sustituimos paso a paso hasta encontrar todas las variables:</p>
+              <ul>
+                <li>$ x = 1 $</li>
+                <li>$ y = 1 $</li>
+                <li>$ z = 1 $</li>
+              </ul>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Resolución de un Sistema Lineal</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve el sistema:
+    \[
+    \begin{cases}
+    x + y = 5 \\
+    2x + 2y = 10
+    \end{cases}
+    \]
+  </p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: El sistema tiene infinitas soluciones. Las ecuaciones representan la misma recta.
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Observamos que la segunda ecuación es solo la primera multiplicada por 2:
+            \[
+            2(x + y) = 2(5) \Rightarrow 2x + 2y = 10
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Esto indica que ambas ecuaciones son equivalentes.</p>
+            </details>
+          </li>
+          <li>
+            Como las dos ecuaciones representan la misma línea, no hay una solución única.
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>El sistema tiene infinitas soluciones, todas las combinaciones $ (x, y) $ tales que $ x + y = 5 $.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Desigualdad Lineal</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( 2x + 3 < 7 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x < 2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Restamos 3 a ambos lados:
+            \[
+            2x + 3 - 3 < 7 - 3 \Rightarrow 2x < 4
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Simplificamos la desigualdad restando 3 a ambos lados.</p>
+            </details>
+          </li>
+          <li>
+            Dividimos entre 2:
+            \[
+            x < 2
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Dividimos ambos lados entre 2 para despejar $ x $. No cambia la dirección de la desigualdad porque 2 es positivo.</p>
+            </details>
+          </li>
+          <li>
+            Solución final: Todos los valores de $ x $ menores que 2.
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>La solución se puede escribir como el intervalo $ (-\infty, 2) $.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Desigualdad Lineal con Coeficiente Negativo</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( -3x + 5 \ge 11 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x \le -2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Restamos 5 a ambos lados:
+            \[
+            -3x + 5 - 5 \ge 11 - 5 \Rightarrow -3x \ge 6
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Eliminamos el término constante del lado izquierdo.</p>
+            </details>
+          </li>
+          <li>
+            Dividimos entre -3 e invertimos la desigualdad:
+            \[
+            x \le -2
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Cuando dividimos o multiplicamos por un número negativo, la desigualdad cambia de sentido.</p>
+            </details>
+          </li>
+          <li>
+            Verificación: Sustituimos un valor menor o igual a -2, como $ x = -3 $:
+            \[
+            -3(-3) + 5 = 9 + 5 = 14 \ge 11 ✓
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>La desigualdad se cumple, confirmando la solución.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Desigualdad Cuadrática (1)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( x^2 - 3x - 4 \le 0 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ -1 \le x \le 4 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Factorizamos la desigualdad cuadrática:
+            \[
+            x^2 - 3x - 4 = (x - 4)(x + 1)
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Los puntos críticos son $ x = -1 $ y $ x = 4 $.</p>
+            </details>
+          </li>
+          <li>
+            Los intervalos a probar son:
+            <ul>
+              <li>$ (-\infty, -1) $</li>
+              <li>$ [-1, 4] $</li>
+              <li>$ (4, \infty) $</li>
+            </ul>
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Evaluamos un valor en cada intervalo para ver dónde se cumple la desigualdad.</p>
+            </details>
+          </li>
+          <li>
+            La desigualdad se cumple en el intervalo cerrado:
+            \[
+            -1 \le x \le 4
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>Como la desigualdad es $ \le $, incluimos los extremos.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Desigualdad Cuadrática (2)</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( 2x^2 + 5x > 3 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ x < -3 $ o $ x > \frac{1}{2} $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Restamos 3 de ambos lados:
+            \[
+            2x^2 + 5x - 3 > 0
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Reescribimos la desigualdad como una expresión cuadrática mayor que cero.</p>
+            </details>
+          </li>
+          <li>
+            Factorizamos:
+            \[
+            2x^2 + 5x - 3 = (2x - 1)(x + 3)
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Los puntos críticos son $ x = -3 $ y $ x = \frac{1}{2} $.</p>
+            </details>
+          </li>
+          <li>
+            Probamos los intervalos definidos por los puntos críticos:
+            <ul>
+              <li>$ (-\infty, -3): $ positivo ✓</li>
+              <li>$ (-3, \frac{1}{2}): $ negativo ✗</li>
+              <li>$ (\frac{1}{2}, \infty): $ positivo ✓</li>
+            </ul>
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>La desigualdad $ (2x - 1)(x + 3) > 0 $ se cumple donde el producto es positivo:</p>
+              <p>Solución: $ x < -3 $ o $ x > \frac{1}{2} $</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <button class="copiar-titulo-btn" onclick="copiarTitulo(this)">Copiar</button>
+  <span class="mensaje-copiado">¡Copiado!</span>
+  <h2>Desigualdad con Valor Absoluto</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Resuelve: \( |x - 1| < 3 \)</p>
+
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: $ -2 < x < 4 $
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Aplicamos la propiedad del valor absoluto:
+            \[
+            |x - 1| < 3 \Rightarrow -3 < x - 1 < 3
+            \]
+            <details>
+              <summary>Paso 1 Detallado</summary>
+              <p>Transformamos la desigualdad de valor absoluto en una doble desigualdad.</p>
+            </details>
+          </li>
+          <li>
+            Sumamos 1 a todas las partes:
+            \[
+            -3 + 1 < x < 3 + 1 \Rightarrow -2 < x < 4
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>Despejamos $ x $ sumando 1 en todos los lados.</p>
+            </details>
+          </li>
+          <li>
+            Solución final: El conjunto solución es el intervalo abierto:
+            \[
+            x \in (-2, 4)
+            \]
+            <details>
+              <summary>Paso 3 Detallado</summary>
+              <p>El signo es estricto (<), así que no incluimos los extremos.</p>
+            </details>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+
+
+
+
+
+
+   
+
+
+
+    </div>
+
+<script>
+function eliminarTarjeta(boton) {
+    const tarjeta = boton.parentNode;
+    tarjeta.style.transition = 'opacity 0.1s ease-in-out, transform 0.1s ease-in-out';
+    tarjeta.style.opacity = '0';
+    tarjeta.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        tarjeta.remove();
+    }, 100);
+}
+
+function copiarTitulo(botonCopiar) {
+    const tarjeta = botonCopiar.parentNode;
+    const tituloElemento = tarjeta.querySelector('h2');
+    const mensajeCopiado = tarjeta.querySelector('.mensaje-copiado'); // Obtén el span del mensaje
+
+    if (tituloElemento && mensajeCopiado) {
+        const titulo = tituloElemento.textContent;
+        navigator.clipboard.writeText(titulo)
+            .then(() => {
+                mensajeCopiado.classList.add('mostrar'); // Agrega la clase para mostrar el mensaje
+                setTimeout(() => {
+                    mensajeCopiado.classList.remove('mostrar'); // Remueve la clase para ocultarlo después de un tiempo
+                }, 1500); // El mensaje se mostrará durante 1.5 segundos (ajusta este valor si lo deseas)
+            })
+            .catch(err => {
+                console.error('Error al copiar el texto: ', err);
+            });
+    }
+}
+</script>
+</body>
+</html>

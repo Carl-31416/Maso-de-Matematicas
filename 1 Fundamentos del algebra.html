@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Fundamentos de Álgebra</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 3rem;
+            background-color: #e9ecef;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border-left: 5px solid #007bff;
+            width: calc(33% - 4rem);
+            margin-right: 2rem;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 1200px) {
+            .card {
+                width: calc(50% - 4rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #1e7e34;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        details {
+            margin-top: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 1rem;
+            background-color: #f8f9fa;
+        }
+
+        summary {
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            list-style: none;
+        }
+
+        summary::before {
+            content: '▶ ';
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+
+        details[open] > summary::before {
+            content: '▼ ';
+        }
+
+        details > p {
+            margin-top: 0.5rem;
+        }
+
+        .eliminar-btn {
+            background-color: #e34c4c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            margin-top: -2.5rem;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+
+        .card:hover .eliminar-btn {
+            opacity: 1;
+        }
+
+        .eliminar-btn:hover {
+            background-color: #c82333;
+        }
+
+        .card-footer {
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>📘 Mazo - Fundamentos de Álgebra</h1>
+    <div class="card-container">
+
+<div class="card">
+  <h2>Operaciones Básicas</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Calcula: \( -5 + 8 - 3 + 10 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 10 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>\( -5 + 8 = 3 \)</li>
+          <li>\( 3 - 3 = 0 \)</li>
+          <li>\( 0 + 10 = 10 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Fracciones</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Calcula: \( \frac{2}{3} \cdot \frac{5}{4} - \frac{1}{2} \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( \frac{1}{3} \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Multiplicar fracciones: \( \frac{2}{3} \cdot \frac{5}{4} = \frac{10}{12} = \frac{5}{6} \)</li>
+          <li>Restar: \( \frac{5}{6} - \frac{1}{2} = \frac{5}{6} - \frac{3}{6} = \frac{2}{6} = \frac{1}{3} \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Jerarquía de Operaciones</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Calcula: \( 2^3 \cdot 4 - 6 \div 2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 13 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Exponente: \( 2^3 = 8 \)</li>
+          <li>Multiplicación: \( 8 \cdot 4 = 32 \)</li>
+          <li>División: \( 6 \div 2 = 3 \)</li>
+          <li>Resta: \( 32 - 3 = 29 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Raíces Cuadradas</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Calcula: \( \sqrt{16} + 3\sqrt{25} - 2\sqrt{9} \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 13 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>\( \sqrt{16} = 4 \)</li>
+          <li>\( \sqrt{25} = 5 \), entonces \( 3\sqrt{25} = 15 \)</li>
+          <li>\( \sqrt{9} = 3 \), entonces \( 2\sqrt{9} = 6 \)</li>
+          <li>Sumar/restar: \( 4 + 15 - 6 = 13 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Racionalización  📘  </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Simplifica: \( \frac{10}{\sqrt{5}} \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 2\sqrt{5} \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Racionalizamos multiplicando por \( \frac{\sqrt{5}}{\sqrt{5}} \):</li>
+          <li>\( \frac{10}{\sqrt{5}} \cdot \frac{\sqrt{5}}{\sqrt{5}} = \frac{10\sqrt{5}}{5} \)</li>
+          <li>Simplificar: \( \frac{10\sqrt{5}}{5} = 2\sqrt{5} \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Propiedad Distributiva</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Utiliza la propiedad distributiva para simplificar: \( 4(x + 3y) \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 4x + 12y \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>La propiedad distributiva dice: \( a(b + c) = ab + ac \).</li>
+          <li>Multiplicamos el 4 por cada término dentro del paréntesis:</li>
+          <ul>
+            <li>\( 4 \cdot x = 4x \)</li>
+            <li>\( 4 \cdot 3y = 12y \)</li>
+          </ul>
+          <li>Resultado final: \( 4x + 12y \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Propiedad Asociativa</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Utiliza la propiedad asociativa para simplificar: \( (2a + 5b) + 3b \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 2a + 8b \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>La propiedad asociativa permite agrupar términos semejantes.</li>
+          <li>Primero identificamos los términos semejantes: \( 5b + 3b \).</li>
+          <li>Sumamos los coeficientes: \( 5b + 3b = 8b \).</li>
+          <li>El término restante es \( 2a \), así que el resultado es: \( 2a + 8b \).</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Propiedad Conmutativa</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Utiliza la propiedad conmutativa para simplificar: \( 7x + 2y + 3x + 5y \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 10x + 7y \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>La propiedad conmutativa nos permite reordenar los términos.</li>
+          <li>Agrupamos términos semejantes:</li>
+          <ul>
+            <li>\( 7x + 3x = 10x \)</li>
+            <li>\( 2y + 5y = 7y \)</li>
+          </ul>
+          <li>Resultado final: \( 10x + 7y \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+<div class="card">
+  <h2>Orden de las Operaciones</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Calcula: \( 10 - 2 \cdot (3 + 1) \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Primero resolvemos lo que está dentro del paréntesis: \( 3 + 1 = 4 \)</li>
+          <li>Luego realizamos la multiplicación: \( 2 \cdot 4 = 8 \)</li>
+          <li>Finalmente hacemos la resta: \( 10 - 8 = 2 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Orden de las Operaciones</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Calcula: \( \frac{8 + 4}{2} + 3^2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 15 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Primero sumamos en el numerador: \( 8 + 4 = 12 \)</li>
+          <li>Después dividimos: \( \frac{12}{2} = 6 \)</li>
+          <li>Elevamos al cuadrado: \( 3^2 = 9 \)</li>
+          <li>Por último sumamos: \( 6 + 9 = 15 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+
+<div class="card">
+  <h2>Simplificación de Expresiones Algebraicas</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Simplifica: \( 3x^2 + 5x - 2x^2 + 7x - 4 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x^2 + 12x - 4 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Agrupamos términos semejantes:</li>
+          <ul>
+            <li>Términos con \( x^2 \): \( 3x^2 - 2x^2 = x^2 \)</li>
+            <li>Términos con \( x \): \( 5x + 7x = 12x \)</li>
+            <li>Término constante: \( -4 \)</li>
+          </ul>
+          <li>Expresión simplificada: \( x^2 + 12x - 4 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Evaluación de una Expresión Algebraica</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Evalúa la expresión \( 2a^2 - 3ab + b^2 \) para \( a = 2 \) y \( b = -1 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 11 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Sustituimos los valores dados:</li>
+          <p>\( 2(2)^2 - 3(2)(-1) + (-1)^2 \)</p>
+          <li>Realizamos las potencias:</li>
+          <p>\( 2(4) - 3(2)(-1) + 1 \)</p>
+          <li>Multiplicamos:</li>
+          <p>\( 8 + 6 + 1 \)</p>
+          <li>Sumamos:</li>
+          <p>\( 15 \)</p>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Potencia de una Expresión Algebraica</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Simplifica: \( (2x^3y^2)^3 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 8x^9y^6 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Elevamos cada factor dentro del paréntesis al cubo:</li>
+          <ul>
+            <li>\( 2^3 = 8 \)</li>
+            <li>\( (x^3)^3 = x^{9} \)</li>
+            <li>\( (y^2)^3 = y^{6} \)</li>
+          </ul>
+          <li>Resultado final: \( 8x^9y^6 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Desarrollo de un Binomio Cuadrado 📘   </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Desarrolla: \( (x + 3)^2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x^2 + 6x + 9 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Usamos la fórmula del cuadrado de un binomio: \( (a + b)^2 = a^2 + 2ab + b^2 \)</li>
+          <li>Sustituimos: \( a = x \), \( b = 3 \)</li>
+          <li>Calculamos:</li>
+          <ul>
+            <li>\( x^2 \)</li>
+            <li>\( 2 \cdot x \cdot 3 = 6x \)</li>
+            <li>\( 3^2 = 9 \)</li>
+          </ul>
+          <li>Resultado final: \( x^2 + 6x + 9 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Desarrollo de un Binomio Cuadrado 📘 </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Desarrolla: \( (2a - b)^2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 4a^2 - 4ab + b^2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Usamos la fórmula: \( (a - b)^2 = a^2 - 2ab + b^2 \)</li>
+          <li>Sustituimos: \( a = 2a \), \( b = b \)</li>
+          <li>Calculamos:</li>
+          <ul>
+            <li>\( (2a)^2 = 4a^2 \)</li>
+            <li>\( -2 \cdot 2a \cdot b = -4ab \)</li>
+            <li>\( b^2 \)</li>
+          </ul>
+          <li>Resultado final: \( 4a^2 - 4ab + b^2 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Factorización de una Diferencia de Cuadrados 📘 </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Factoriza: \( x^2 - 9 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( (x - 3)(x + 3) \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Identificamos que es una diferencia de cuadrados: \( a^2 - b^2 = (a - b)(a + b) \)</li>
+          <li>\( x^2 \) es el cuadrado de \( x \), y \( 9 \) es el cuadrado de \( 3 \)</li>
+          <li>Aplicamos la fórmula: \( x^2 - 9 = (x - 3)(x + 3) \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Factorización de un Trinomio Cuadrático 📘 </h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Factoriza: \( 2x^2 + 5x + 2 \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( (2x + 1)(x + 2) \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Multiplicamos el coeficiente principal por el término constante: \( 2 \cdot 2 = 4 \)</li>
+          <li>Buscamos dos números que multipliquen a 4 y sumen 5 → esos números son 4 y 1</li>
+          <li>Reescribimos el término central: \( 2x^2 + 4x + x + 2 \)</li>
+          <li>Agrupamos: \( (2x^2 + 4x) + (x + 2) \)</li>
+          <li>Factorizamos cada grupo: \( 2x(x + 2) + 1(x + 2) \)</li>
+          <li>Extraemos el factor común: \( (2x + 1)(x + 2) \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Suma de Polinomios</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Suma los polinomios: \( (4x^3 - 2x^2 + 5x - 1) + (x^3 + 3x^2 - 2x + 4) \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 5x^3 + x^2 + 3x + 3 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Agrupamos términos semejantes:</li>
+          <ul>
+            <li>\( 4x^3 + x^3 = 5x^3 \)</li>
+            <li>\( -2x^2 + 3x^2 = x^2 \)</li>
+            <li>\( 5x - 2x = 3x \)</li>
+            <li>\( -1 + 4 = 3 \)</li>
+          </ul>
+          <li>Polinomio resultante: \( 5x^3 + x^2 + 3x + 3 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>Multiplicación de Polinomios</h2>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Multiplica los polinomios: \( (x + 2)(x - 3) \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( x^2 - x - 6 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Aplicamos la propiedad distributiva (FOIL):</li>
+          <ul>
+            <li>\( x \cdot x = x^2 \)</li>
+            <li>\( x \cdot (-3) = -3x \)</li>
+            <li>\( 2 \cdot x = 2x \)</li>
+            <li>\( 2 \cdot (-3) = -6 \)</li>
+          </ul>
+          <li>Combinamos términos semejantes: \( x^2 - 3x + 2x - 6 = x^2 - x - 6 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+<div class="card">
+  <h2>División de Polinomios 📘  </h2>
+  <h5>"<b>División Larga</b>" de Polinomios</h5>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Divide los polinomios: \( \frac{6x^2 + 5x - 6}{2x - 1} \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 3x + 4 \), residuo \( 0 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>Realizamos división larga de polinomios entre \( 2x - 1 \) y \( 6x^2 + 5x - 6 \).</li>
+          <li>Primer paso: \( \frac{6x^2}{2x} = 3x \), multiplicamos y restamos:</li>
+          <ul>
+            <li>\( 3x(2x - 1) = 6x^2 - 3x \)</li>
+            <li>Restamos: \( (6x^2 + 5x - 6) - (6x^2 - 3x) = 8x - 6 \)</li>
+          </ul>
+          <li>Segundo paso: \( \frac{8x}{2x} = 4 \), multiplicamos y restamos:</li>
+          <ul>
+            <li>\( 4(2x - 1) = 8x - 4 \)</li>
+            <li>Restamos: \( (8x - 6) - (8x - 4) = -2 \)</li>
+          </ul>
+          <li>No hay residuo, por lo tanto: cociente final es \( 3x + 4 \)</li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+
+
+<div class="card">
+  <h2>División de Polinomios 📘</h2>
+  <h5>"<b>Método de Factorización</b>"</h5>
+  <button class="eliminar-btn" onclick="eliminarTarjeta(this)">Eliminar</button>
+  <p>Divide los polinomios: \( \frac{6x^2 + 5x - 6}{2x - 1} \)</p>
+  <details>
+    <summary>Respuesta</summary>
+    <p>
+      Resultado: \( 3x + 2 \)
+    </p>
+    <details>
+      <summary>Ver pasos detallados</summary>
+      <p>
+        Pasos:
+        <ol>
+          <li>
+            Factoriza el numerador \( 6x^2 + 5x - 6 \):
+            <ul>
+              <li>Multiplica \( a \cdot c = 6 \cdot (-6) = -36 \)</li>
+              <li>Busca dos números que multipliquen a \(-36\) y sumen \(5\): son \(9\) y \(-4\)</li>
+              <li>Reescribe el término central: \( 6x^2 + 9x - 4x - 6 \)</li>
+              <li>Agrupa y factoriza:
+                \[
+                  (6x^2 + 9x) - (4x + 6) = 3x(2x + 3) - 2(2x + 3)
+                \]
+              </li>
+              <li>Factor común: \( (3x - 2)(2x + 3) \)
+                <details>
+                  <summary>Paso 1 Detallado</summary>
+                  <p>El polinomio se factoriza como \( (3x - 2)(2x + 3) \)</p>
+                </details>
+              </li>
+            </ul>
+          </li>
+          <li>
+            Escribe la fracción completa:
+            \[
+              \frac{(3x - 2)(2x + 3)}{2x - 1}
+            \]
+            <details>
+              <summary>Paso 2 Detallado</summary>
+              <p>No hay factores comunes directos. Revisa si el denominador divide al numerador.</p>
+            </details>
+          </li>
+          <li>
+            Realiza una división o prueba sustituyendo valores para verificar:
+            <ul>
+              <li>Intenta dividir \( 6x^2 + 5x - 6 \) entre \( 2x - 1 \) usando división larga o inspección</li>
+              <li>Encuentras que \( 6x^2 + 5x - 6 = (2x - 1)(3x + 2) \)
+                <details>
+                  <summary>Paso 3 Detallado</summary>
+                  <p>Entonces puedes cancelar \( 2x - 1 \):</p>
+                  <p>\[ \frac{(2x - 1)(3x + 2)}{2x - 1} = 3x + 2 \]</p>
+                </details>
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </p>
+    </details>
+  </details>
+</div>
+   
+
+
+
+    </div>
+
+
+<script>
+function eliminarTarjeta(boton) {
+    const tarjeta = boton.parentNode;
+    tarjeta.style.transition = 'opacity 0.1s ease-in-out, transform 0.1s ease-in-out';
+    tarjeta.style.opacity = '0';
+    tarjeta.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        tarjeta.remove();
+    }, 100);
+}
+</script>
+</body>
+</html>

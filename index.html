@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de Sílabas: pri, bru, dri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 1.5em;
+    }
+
+    #word {
+      font-size: 2em;
+      margin: 20px 0;
+      color: #000;
+    }
+
+    .buttons button {
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+    }
+
+    #result {
+      font-size: 2.5em;
+      margin-top: 20px;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .incorrect {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>¿Contiene "pri", "bru" o "dri"?</h1>
+  <div id="word">Cargando...</div>
+
+  <div class="buttons">
+    <button onclick="checkAnswer(true)">Sí</button>
+    <button onclick="checkAnswer(false)">No</button><br>
+    <button onclick="nextWord()" style="margin-top: 20px; background-color: #2196F3;">Siguiente palabra</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const words = [
+      { word: "primavera", valid: true },
+      { word: "brujula", valid: true },
+      { word: "driada", valid: true },
+      { word: "manzana", valid: false },
+      { word: "cascada", valid: false },
+      { word: "trueno", valid: false }
+    ];
+
+    let currentWordIndex = 0;
+
+    function nextWord() {
+      if (currentWordIndex >= words.length) {
+        document.getElementById("word").innerText = "Fin del juego";
+        document.getElementById("result").innerText = "";
+        return;
+      }
+
+      document.getElementById("word").innerText = words[currentWordIndex].word;
+      document.getElementById("result").innerText = "";
+    }
+
+    function checkAnswer(answer) {
+      const current = words[currentWordIndex];
+      const resultDiv = document.getElementById("result");
+
+      if ((answer && current.valid) || (!answer && !current.valid)) {
+        resultDiv.innerText = "✅";
+        resultDiv.className = "correct";
+      } else {
+        resultDiv.innerText = "❌";
+        resultDiv.className = "incorrect";
+      }
+
+      currentWordIndex++;
+    }
+
+    window.onload = nextWord;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mazo Interactivo - Aleatorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffe0f0);
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #4a148c;
+      font-weight: bold;
+    }
+    p {
+      color: #555;
+      margin-bottom: 30px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .front {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .back {
+      font-size: 15px;
+      display: none;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #2e7d32;
+      font-style: italic;
+    }
+    .dismiss-btn {
+      margin-top: 15px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .dismiss-btn:hover {
+      background-color: #fb8c00;
+    }
+
+    @media (max-width: 600px) {
+      .dismiss-btn {
+        font-size: 18px;
+        padding: 16px 24px;
+        min-height: 60px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 20px;
+      }
+      .front,
+      .back {
+        font-size: 16px;
+      }
+      .card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🃏 Mazo Interactivo - Aleatorio</h1>
+  <p>Haz clic en cada tarjeta para ver la respuesta. Usa el botón para descartarla si ya la sabes.</p>
+  <div class="container" id="cards-container"></div>
+
+  <script>
+    const flashcards = [
+    
+  {
+    question1: "¿Cómo se interpreta un resultado positivo para mutaciones en BRCA1 o BRCA2 en una paciente con antecedentes familiares de cáncer de mama?",
+    answer1: "Un resultado positivo indica un riesgo elevado de desarrollar cáncer de mama y/u ovario, lo cual puede guiar decisiones clínicas como vigilancia intensificada, prevención farmacológica o cirugía profiláctica.",
+    question2: "¿Qué implica obtener un resultado positivo en la prueba genética de BRCA1/BRCA2 en una paciente con historia familiar de cáncer mamario?",
+    answer2: "Significa un riesgo significativamente aumentado de desarrollar cáncer de mama u ovario, lo que sugiere manejo preventivo personalizado."
+  },
+  {
+    question1: "¿Cuál es el rol del análisis de HLA-B*57:01 antes de iniciar tratamiento con abacavir?",
+    answer1: "Es una prueba genética que identifica si el paciente tiene el alelo HLA-B*57:01, cuya presencia está asociada con una reacción hipersensitiva grave al abacavir.",
+    question2: "¿Para qué se utiliza la determinación del HLA-B*57:01 en pacientes candidatos a recibir abacavir?",
+    answer2: "Se usa para predecir el riesgo de desarrollar una reacción de hipersensibilidad severa al medicamento abacavir, evitando su uso en pacientes positivos."
+  },
+  {
+    question1: "¿Cuál es el manejo inicial recomendado para un paciente con shock séptico sin hipotensión manifiesta?",
+    answer1: "Iniciar fluidoterapia adecuada, administrar antibióticos de amplio espectro cuanto antes y monitorear signos de deterioro hemodinámico para iniciar soporte vasopresor si progresa a hipotensión.",
+    question2: "¿Qué medidas iniciales se deben tomar ante un diagnóstico de shock séptico sin hipotensión?",
+    answer2: "Iniciar hidratación intravenosa, administrar antibióticos tempranos y vigilar estrechamente la evolución hemodinámica para detectar necesidad de vasopresores."
+  },
+  {
+    question1: "¿En qué situación está indicado el uso de CPAP en un paciente con edema pulmonar agudo severo?",
+    answer1: "Está indicado cuando hay insuficiencia respiratoria con hipoxemia refractaria a oxígeno convencional, ayudando a reducir la carga de trabajo cardíaco y mejorar el intercambio gaseoso.",
+    question2: "¿Bajo qué condiciones se recomienda el uso de CPAP en el edema pulmonar agudo severo?",
+    answer2: "Se recomienda cuando persiste la dificultad respiratoria y la saturación de oxígeno no mejora con oxígeno estándar, para evitar intubación y mejorar la función respiratoria."
+  },
+  {
+    question1: "¿Cuáles son los criterios clínicos y laboratorios utilizados para diagnosticar el síndrome de respuesta inflamatoria sistémica (SIRS)?",
+    answer1: "Temperatura >38°C o <36°C, frecuencia cardiaca >90 lpm, frecuencia respiratoria >20 rpm o PaCO₂ <32 mmHg, leucocitosis >12.000/mm³ o <4.000/mm³ o >10% de bandas.",
+    question2: "¿Qué parámetros se evalúan para establecer el diagnóstico de SIRS?",
+    answer2: "Se evalúan temperatura corporal, frecuencia cardiaca, frecuencia respiratoria y conteo de glóbulos blancos o presencia de bandas en sangre periférica."
+  },
+  {
+    question1: "¿Cuál es el régimen empírico recomendado para tratar neumonía adquirida en la comunidad con factores de riesgo para *Pseudomonas aeruginosa*?",
+    answer1: "Antibioticoterapia combinada con cobertura anti-Pseudomonas como piperacilina-tazobactam, cefepime o imipenem, más un macrólido o fluoroquinolona según contexto clínico.",
+    question2: "¿Qué tratamiento empírico se debe considerar en neumonía comunitaria con sospecha de *Pseudomonas aeruginosa*?",
+    answer2: "Una beta-lactámica de amplio espectro (como cefepime o piperacilina-tazobactam) junto con un macrólido o una fluoroquinolona."
+  },
+  {
+    question1: "¿Cuándo se debe considerar profilaxis antibiótica secundaria para endocarditis bacteriana en pacientes con prótesis valvulares?",
+    answer1: "Se considera en pacientes con antecedente previo de endocarditis infecciosa o en aquellos sometidos a procedimientos dentales, quirúrgicos o urológicos invasivos con alto riesgo de bacteriemia.",
+    question2: "¿En qué casos se indica profilaxis secundaria para endocarditis bacteriana en pacientes con válvulas protésicas?",
+    answer2: "En pacientes con historia de endocarditis previa o en procedimientos invasivos donde existe riesgo de entrada de microorganismos al torrente sanguíneo."
+  },
+  {
+    question1: "¿Cómo interpretar los niveles de procalcitonina en relación con infección bacteriana frente a viral?",
+    answer1: "Los niveles elevados (>1 ng/mL) sugieren infección bacteriana, mientras que niveles bajos (<0.25 ng/mL) son más compatibles con infecciones virales, ayudando en la orientación terapéutica.",
+    question2: "¿Qué valor tiene la medición de procalcitonina para diferenciar entre infección bacteriana y viral?",
+    answer2: "Los niveles altos favorecen infección bacteriana, mientras que valores normales o ligeramente elevados apoyan causa viral, útil para guiar uso de antibióticos."
+  },
+  {
+    question1: "¿Qué hallazgos clínicos sugieren esclerosis lateral amiotrófica (ELA) frente a neuropatía periférica?",
+    answer1: "Atrofia muscular, fasciculaciones, hiperreflexia y alteraciones piramidales sugieren ELA; mientras que pérdida sensorial, arreflexia y debilidad simétrica indican neuropatía periférica.",
+    question2: "¿Cuáles son los signos distintivos de la esclerosis lateral amiotrófica comparada con una neuropatía periférica?",
+    answer2: "La ELA presenta afectación motora pura con espasticidad, hiperreflexia y fasciculaciones, mientras que la neuropatía incluye déficit sensitivo y arreflexia."
+  },
+  {
+    question1: "¿Cuál es el primer estudio diagnóstico a realizar ante una crisis convulsiva nueva en un adulto mayor?",
+    answer1: "La tomografía computarizada de cerebro sin contraste para descartar causas estructurales agudas como hemorragia, tumor o infarto.",
+    question2: "¿Qué examen se solicita primero ante un primer episodio de convulsión en un adulto mayor?",
+    answer2: "Una tomografía axial computada (TAC) cerebral sin contraste para identificar patología estructural subyacente."
+  },
+
+  {
+    question1: "¿Cuál es el mecanismo fisiopatológico del síndrome de secreción inadecuada de ADH (SIADH)?",
+    answer1: "Secreción inadecuada e independiente de ADH que causa retención de agua y natremia baja",
+    question2: "Describe el papel de la ADH en el síndrome de secreción inadecuada de ADH",
+    answer2: "La ADH se libera sin estímulo osmótico o hipovolémico, causando retención hídrica y dilución del sodio"
+  },
+  {
+    question1: "¿Cómo afecta la hipoalbuminemia al equilibrio ácido-base?",
+    answer1: "Disminuye los grupos COOH no titulables, causando liberación relativa de H+ y alcalosis metabólica",
+    question2: "Explica cómo una disminución de albúmina puede alterar el pH sanguíneo",
+    answer2: "Al reducirse los grupos COOH, hay liberación compensatoria de protones, llevando a alcalosis metabólica"
+  },
+  {
+    question1: "¿Qué papel juega el factor tisular en la cascada de coagulación?",
+    answer1: "Es una proteína que inicia la vía extrínseca al unirse al factor VIIa",
+    question2: "Describe el rol del factor tisular en la activación de la coagulación",
+    answer2: "Actúa como cofactor del complejo factor VIIa, iniciando la activación del factor X y conectando daño vascular con coagulación"
+  },
+  {
+    question1: "¿Cuáles son las causas más comunes de dolor abdominal atípico en pacientes diabéticos mayores de 65 años?",
+    answer1: "Neuropatía autonómica, isquemia mesentérica o presentaciones atípicas de pancreatitis",
+    question2: "Describe cómo podría manifestarse una pancreatitis aguda en un paciente diabético mayor",
+    answer2: "Con síntomas leves o ausentes debido a neuropatía visceral, retrasando diagnóstico temprano"
+  },
+  {
+    question1: "¿Cómo diferenciar clínicamente entre pancreatitis aguda y cáncer de cabeza de páncreas?",
+    answer1: "Pancreatitis presenta amilasa/lipasa elevadas y dolor intenso; CA-Páncreas tiene pérdida de peso y ictericia progresiva",
+    question2: "Describe los hallazgos diferenciales entre pancreatitis y cáncer de cabeza de páncreas",
+    answer2: "CA-Páncreas asociado a prurito, pérdida de peso, signo de Courvoisier y marcadores tumorales elevados"
+  },
+  {
+    question1: "¿Cuándo considerar amiloidosis en un paciente con insuficiencia cardíaca refractaria?",
+    answer1: "Cuando hay engrosamiento ventricular inexplicable, ondas Q falsas y afectación renal paralela",
+    question2: "Describa los hallazgos típicos de la amiloidosis cardíaca en estudios complementarios",
+    answer2: "Ecocardiografía muestra miocardiopatía restrictiva con engrosamiento septal; resonancia muestra realce tardío característico"
+  },
+  {
+    question1: "¿Cuál es el riesgo asociado al uso prolongado de IBP con fracturas osteoporóticas?",
+    answer1: "Disminuye absorción de calcio y recambio óseo por inhibición de bomba H+/K+ en osteoclastos",
+    question2: "Explique el mecanismo por el cual los inhibidores de la bomba de protones aumentan riesgo de fracturas",
+    answer2: "Reducen disponibilidad de calcio iónico y alteran función osteoclástica por acidificación defectuosa"
+  },
+  {
+    question1: "¿Qué interacciones farmacológicas evaluar al iniciar warfarina?",
+    answer1: "Antibióticos (inhiben CYP2C9), amiodarona, AINEs y alimentos ricos en vitamina K",
+    question2: "Describa cómo ciertos antibióticos pueden potenciar el efecto de la warfarina",
+    answer2: "Inhiben metabolismo hepático de warfarina vía CYP2C9, aumentando INR y riesgo de sangrado"
+  },
+  {
+    question1: "¿Por qué betabloqueadores no selectivos están contraindicados en asmáticos?",
+    answer1: "Bloquean receptores β2 causando broncoespasmo, especialmente en dosis altas o sistémicas",
+    question2: "Explique el riesgo teórico del uso de betabloqueadores en pacientes con asma",
+    answer2: "Pueden inducir broncoconstricción al bloquear receptores β2 responsables de relajación del músculo liso"
+  },
+  {
+    question1: "¿Qué implica el polimorfismo CYP2C19 en activación de clopidogrel?",
+    answer1: "Los portadores de alelos *2 o *3 tienen menor conversión a metabolito activo, reduciendo eficacia antiplaquetaria",
+    question2: "Describa cómo el genotipo CYP2C19 afecta la respuesta al clopidogrel",
+    answer2: "Alelos no funcionantes (como *2) disminuyen conversión a forma activa, asociándose a mayor riesgo de eventos cardiovasculares"
+  },
+
+  {
+    question1: "¿Cuándo se debe considerar trombólisis en un paciente con accidente cerebrovascular isquémico dentro de la ventana terapéutica?",
+    answer1: "Se debe considerar dentro de las 4.5 horas desde el inicio de los síntomas, si no hay contraindicaciones",
+    question2: "Describe cuándo se debe considerar la trombólisis en un caso de accidente cerebrovascular isquémico dentro de la ventana terapéutica.",
+    answer2: "Se debe considerar dentro de las 4.5 horas desde el inicio de los síntomas, siempre que no haya contraindicaciones"
+  },
+  {
+    question1: "¿Cuál es la interpretación de un patrón ECG de ondas T negativas simétricas profundas en precordiales en un paciente con angina?",
+    answer1: "Puede indicar isquemia subendocárdica o lesión miocárdica, típicamente asociada con angina inestable",
+    question2: "Describe cómo se interpreta un patrón ECG con ondas T negativas simétricas profundas en precordiales en un paciente con angina.",
+    answer2: "Puede indicar isquemia subendocárdica o lesión miocárdica, típicamente asociada con angina inestable"
+  },
+  {
+    question1: "¿Qué criterios definen disfunción ventricular diastólica en ecocardiografía?",
+    answer1: "Incluyen alteraciones en la relajación del ventrículo izquierdo, aumento de presiones de llenado y normal o preservado FEVI",
+    question2: "Describe los criterios que definen la disfunción ventricular diastólica según la ecocardiografía.",
+    answer2: "Incluyen alteraciones en la relajación del ventrículo izquierdo, aumento de presiones de llenado y función sistólica normal o preservada (FEVI)"
+  },
+  {
+    question1: "¿Cuál es el manejo inicial de una arritmia supraventricular con conducción aberrante vs taquicardia ventricular?",
+    answer1: "Evaluar estabilidad hemodinámica; si es estable, usar adenosina o bloqueadores de calcio; si es inestable, cardioversión eléctrica",
+    question2: "Describe el manejo inicial de una arritmia supraventricular con conducción aberrante comparada con una taquicardia ventricular.",
+    answer2: "Evaluar estabilidad hemodinámica; si es estable, usar adenosina o bloqueadores de calcio; si es inestable, cardioversión eléctrica"
+  },
+  {
+    question1: "¿Cuál es la estrategia de manejo escalonado del asma en adultos según gravedad?",
+    answer1: "Clasificación por control y severidad, uso progresivo de B2 agonistas de acción corta, corticoides inhalados, LABA y biológicos en casos graves",
+    question2: "Describe la estrategia de manejo escalonado del asma en adultos basada en la gravedad.",
+    answer2: "Clasificación por control y severidad, uso progresivo de B2 agonistas de acción corta, corticoides inhalados, LABA y biológicos en casos graves"
+  },
+  {
+    question1: "¿Cómo distinguir clínicamente entre enfisema y bronquitis crónica en un paciente con EPOC?",
+    answer1: "Enfisema: disnea predominante, hiperinsuflación; Bronquitis crónica: tos productiva persistente y mayor riesgo de infecciones",
+    question2: "Describe cómo se diferencian clínicamente el enfisema y la bronquitis crónica en pacientes con EPOC.",
+    answer2: "El enfisema presenta disnea predominante y hiperinsuflación pulmonar; la bronquitis crónica se manifiesta con tos productiva persistente y mayor riesgo de infecciones"
+  },
+  {
+    question1: "¿Cuándo se indica oxigenoterapia nocturna en pacientes con EPOC severo?",
+    answer1: "Si hay hipoxemia nocturna documentada o persistente, con saturación <88% durante más de 5 minutos",
+    question2: "Describe cuándo está indicada la oxigenoterapia nocturna en pacientes con EPOC severo.",
+    answer2: "Se indica cuando hay hipoxemia nocturna documentada o persistente, definida como saturación <88% durante más de 5 minutos"
+  },
+  {
+    question1: "¿Cuál es el riesgo cardiovascular asociado al uso prolongado de antipsicóticos atípicos?",
+    answer1: "Mayor riesgo de obesidad, dislipidemia, diabetes tipo 2 e hipertensión, lo cual incrementa el riesgo de enfermedad cardiovascular",
+    question2: "Describe el riesgo cardiovascular relacionado con el uso prolongado de antipsicóticos atípicos.",
+    answer2: "Mayor riesgo de obesidad, dislipidemia, diabetes tipo 2 e hipertensión, lo cual incrementa el riesgo de enfermedad cardiovascular"
+  },
+  {
+    question1: "¿Cómo diferenciar clínicamente entre trastorno bipolar tipo I y trastorno esquizoafectivo?",
+    answer1: "En el trastorno bipolar tipo I, los episodios psicóticos ocurren solo durante episodios de manía o depresión; en el esquizoafectivo, hay síntomas psicóticos persistentes sin relación con episodios de humor",
+    question2: "Describe cómo se diferencia clínicamente el trastorno bipolar tipo I del trastorno esquizoafectivo.",
+    answer2: "En el trastorno bipolar tipo I, los episodios psicóticos ocurren solo durante episodios de manía o depresión; en el esquizoafectivo, hay síntomas psicóticos persistentes sin relación con episodios de humor"
+  },
+  {
+    question1: "¿Qué efectos adversos metabólicos son típicos del uso prolongado de olanzapina?",
+    answer1: "Aumento de peso, resistencia a la insulina, hiperlipidemia e incremento del riesgo de diabetes tipo 2.",
+    question2: "Describa los efectos metabólicos asociados al uso prolongado de olanzapina.",
+    answer2: "Aumento de peso, resistencia a la insulina, hiperlipidemia e incremento del riesgo de diabetes tipo 2."
+  },
+  {
+    question1: "¿Cuál es el significado clínico de una anemia microcítica con hierro sérico elevado?",
+    answer1: "Puede indicar anemia sideroblástica o enfermedad hepática crónica.",
+    question2: "Describa el significado clínico de encontrar anemia microcítica junto con hierro sérico elevado.",
+    answer2: "Puede indicar anemia sideroblástica o enfermedad hepática crónica."
+  },
+  {
+    question1: "¿Cuándo se debe sospechar mieloma múltiple en un paciente con anemia normocítica persistente?",
+    answer1: "Cuando hay presencia de síntomas óseos, hipercalcemia, insuficiencia renal o infecciones recurrentes, especialmente si hay gammopatía monoclonal en electroforesis.",
+    question2: "Describa cuándo se debe considerar el diagnóstico de mieloma múltiple en un paciente con anemia normocítica.",
+    answer2: "Cuando hay presencia de síntomas óseos, hipercalcemia, insuficiencia renal o infecciones recurrentes, especialmente si hay gammopatía monoclonal en electroforesis."
+  },
+  {
+    question1: "¿Qué marcadores tumorales son específicos para leucemia linfocítica crónica?",
+    answer1: "CD5, CD19, CD23 y expresión reducida de inmunoglobulina de superficie (sIg débil).",
+    question2: "Describa los marcadores tumorales típicamente asociados a la leucemia linfocítica crónica.",
+    answer2: "CD5, CD19, CD23 y expresión reducida de inmunoglobulina de superficie (sIg débil)."
+  },
+  {
+    question1: "¿Cuál es la diferencia serológica entre lupus eritematoso sistémico y síndrome antifosfolípido primario?",
+    answer1: "El LES suele presentar ANA positivo, anti-dsDNA y anti-Sm; mientras que el Síndrome Antifosfolípido primario se caracteriza por anticardiolipina, anti-β2-glicoproteína I y test de coagulación positivos sin criterios completos de lupus.",
+    question2: "Describa la diferencia serológica entre lupus eritematoso sistémico y síndrome antifosfolípido primario.",
+    answer2: "El LES suele presentar ANA positivo, anti-dsDNA y anti-Sm; mientras que el Síndrome Antifosfolípido primario se caracteriza por anticardiolipina, anti-β2-glicoproteína I y test de coagulación positivos sin criterios completos de lupus."
+  },
+  {
+    question1: "¿Cómo interpretar los anticuerpos anti-CCP y factor reumatoide en el diagnóstico temprano de artritis reumatoide?",
+    answer1: "Los anti-CCP son más específicos para artritis reumatoide que el factor reumatoide, que puede estar presente en otras condiciones inflamatorias o autoinmunes.",
+    question2: "Describa cómo se utilizan los anticuerpos anti-CCP y el factor reumatoide en el diagnóstico temprano de la artritis reumatoide.",
+    answer2: "Los anti-CCP son más específicos para artritis reumatoide que el factor reumatoide, que puede estar presente en otras condiciones inflamatorias o autoinmunes."
+  },
+  {
+    question1: "¿Cuándo se debe sospechar vasculitis ANCA positiva en un paciente con nefritis rápidamente progresiva?",
+    answer1: "Cuando hay hallazgos de glomerulonefritis rápidamente progresiva sin inmunocomplejos, junto con manifestaciones pulmonares o sistémicas y pruebas ANCA positivas.",
+    question2: "Describa cuándo se debe considerar una vasculitis ANCA positiva en un paciente con nefritis rápidamente progresiva.",
+    answer2: "Cuando hay hallazgos de glomerulonefritis rápidamente progresiva sin inmunocomplejos, junto con manifestaciones pulmonares o sistémicas y pruebas ANCA positivas."
+  },
+  {
+    question1: "¿Cuál es el valor predictivo positivo de una PCR ultrasensible elevada en la predicción de eventos cardiovasculares?",
+    answer1: "Una PCR ultrasensible elevada indica inflamación subclínica y está asociada con mayor riesgo de eventos cardiovasculares futuros, aunque su valor predictivo positivo individual es moderado.",
+    question2: "Describa el valor predictivo de una PCR ultrasensible elevada en relación con eventos cardiovasculares.",
+    answer2: "Una PCR ultrasensible elevada indica inflamación subclínica y está asociada con mayor riesgo de eventos cardiovasculares futuros, aunque su valor predictivo positivo individual es moderado."
+  },
+  {
+    question1: "¿Qué significa una ferritina muy elevada con hierro sérico normal o bajo?",
+    answer1: "Puede reflejar un proceso inflamatorio crónico, enfermedad hepática o hiperferritinemia hereditaria (sin sobrecarga de hierro).",
+    question2: "Describa qué implica encontrar niveles muy altos de ferritina con hierro sérico normal o bajo.",
+    answer2: "Puede reflejar un proceso inflamatorio crónico, enfermedad hepática o hiperferritinemia hereditaria (sin sobrecarga de hierro)."
+  },
+  {
+    question1: "¿Cómo interpretar un sodio plasmático bajo con osmolalidad urinaria alta?",
+    answer1: "Sugiere síndrome de secreción inadecuada de ADH (SIADH), ya que hay retención de agua con sodio inadecuadamente concentrado en la orina.",
+    question2: "Describa cómo se interpreta un sodio plasmático bajo junto con una osmolalidad urinaria alta.",
+    answer2: "Sugiere síndrome de secreción inadecuada de ADH (SIADH), ya que hay retención de agua con sodio inadecuadamente concentrado en la orina."
+  },
+  {
+    question1: "¿Cuáles son los principios éticos que sustentan la decisión de suspender soporte vital en UCI?",
+    answer1: "Autonomía (voluntad del paciente o representante legal), beneficencia (no prolongar sufrimiento innecesario), no maleficencia y justicia (distribución equitativa de recursos médicos).",
+    question2: "Describa los principios éticos que fundamentan la interrupción del soporte vital en una unidad de cuidados intensivos.",
+    answer2: "Autonomía (voluntad del paciente o representante legal), beneficencia (no prolongar sufrimiento innecesario), no maleficencia y justicia (distribución equitativa de recursos médicos)."
+  }
+    ];
+
+    function getRandomCardVersion(card) {
+      const useVersion1 = Math.random() < 0.5;
+      return {
+        front: useVersion1 ? card.question1 : card.question2,
+        back: useVersion1 ? card.answer1 : card.answer2
+      };
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function createCardElement(front, back) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="front">${front}</div>
+        <div class="back" style="display:none;">${back}</div>
+        <button class="dismiss-btn">Sabido ✔️</button>
+      `;
+
+      // Asegúrate de que el evento solo afecte a la tarjeta
+      card.addEventListener('click', function(e) {
+        if (!e.target.classList.contains("dismiss-btn")) {
+          const backEl = card.querySelector(".back");
+          if (backEl) {
+            backEl.style.display = backEl.style.display === "block" ? "none" : "block";
+          }
+        }
+      });
+
+      // Botón eliminar
+      const dismissBtn = card.querySelector(".dismiss-btn");
+      if (dismissBtn) {
+        dismissBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          card.style.opacity = 0;
+          setTimeout(() => card.remove(), 100);
+        });
+      }
+
+      return card;
+    }
+
+    function loadCards() {
+      const container = document.getElementById('cards-container');
+      if (!container) return;
+      container.innerHTML = '';
+      const shuffled = shuffle([...flashcards]);
+      shuffled.forEach(cardData => {
+        const { front, back } = getRandomCardVersion(cardData);
+        const cardElement = createCardElement(front, back);
+        container.appendChild(cardElement);
+      });
+    }
+
+    window.onload = loadCards;
+  </script>
+</body>
+</html>
