@@ -1,2 +1,2 @@
-# Maso-de-Matematicas y otros masos
+# Maso-de-pri-bru
 Maso de Matematicas
