@@ -64,12 +64,30 @@
 
   <script>
     const words = [
+       // Palabras que sí contienen "pri", "bru" o "dri"
       { word: "primavera", valid: true },
       { word: "brujula", valid: true },
       { word: "driada", valid: true },
+      { word: "prima", valid: true },
+      { word: "bruma", valid: true },
+      { word: "drible", valid: true },
+      { word: "brote", valid: true },
+      { word: "drift", valid: true },
+      { word: "prioridad", valid: true },
+      { word: "brusco", valid: true },
+
+      // Palabras que NO contienen esas sílabas
       { word: "manzana", valid: false },
       { word: "cascada", valid: false },
-      { word: "trueno", valid: false }
+      { word: "trueno", valid: false },
+      { word: "nube", valid: false },
+      { word: "silla", valid: false },
+      { word: "gato", valid: false },
+      { word: "viento", valid: false },
+      { word: "mesa", valid: false },
+      { word: "libro", valid: false },
+      { word: "luz", valid: false }
+      
     ];
 
     let currentWordIndex = 0;
