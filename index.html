@@ -40,6 +40,12 @@
       margin-top: 20px;
     }
 
+    #score {
+      font-size: 2em;
+      margin-top: 20px;
+      color: #333;
+    }
+
     .correct {
       color: green;
     }
@@ -61,10 +67,11 @@
   </div>
 
   <div id="result"></div>
+  <div id="score"></div>
 
   <script>
     const words = [
-       // Palabras que sí contienen "pri", "bru" o "dri"
+      // Palabras que sí contienen "pri", "bru" o "dri"
       { word: "primavera", valid: true },
       { word: "brujula", valid: true },
       { word: "driada", valid: true },
@@ -87,15 +94,16 @@
       { word: "mesa", valid: false },
       { word: "libro", valid: false },
       { word: "luz", valid: false }
-      
     ];
 
     let currentWordIndex = 0;
+    let correctCount = 0;
 
     function nextWord() {
       if (currentWordIndex >= words.length) {
         document.getElementById("word").innerText = "Fin del juego";
         document.getElementById("result").innerText = "";
+        showFinalScore();
         return;
       }
 
@@ -110,12 +118,22 @@
       if ((answer && current.valid) || (!answer && !current.valid)) {
         resultDiv.innerText = "✅";
         resultDiv.className = "correct";
+        correctCount++;
       } else {
         resultDiv.innerText = "❌";
         resultDiv.className = "incorrect";
       }
 
       currentWordIndex++;
+    }
+
+    function showFinalScore() {
+      const totalQuestions = words.length;
+      const percentage = (correctCount / totalQuestions) * 100;
+      const score = Math.round(percentage / 10); // Escala del 0 al 10
+
+      const scoreDiv = document.getElementById("score");
+      scoreDiv.innerHTML = `Tu puntuación: <strong>${score}/10</strong>`;
     }
 
     window.onload = nextWord;
